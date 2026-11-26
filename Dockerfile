@@ -1,6 +1,6 @@
 FROM debian:bookworm-20260918 AS dump1090
 
-ENV DUMP1090_VERSION=v11.1
+ENV DUMP1090_VERSION=master
 
 # DUMP1090
 RUN apt-get update && \
@@ -17,7 +17,7 @@ RUN apt-get update && \
 
 ADD patch /patch
 WORKDIR /tmp
-RUN git clone -b ${DUMP1090_VERSION} --depth 1 https://github.com/flightaware/dump1090 && \
+RUN git clone -b ${DUMP1090_VERSION} --depth 1 https://github.com/martian/dump1090 && \
     cd dump1090 && \
     cp /patch/resources/fr24-logo.svg $PWD/public_html/images && \
     patch --ignore-whitespace -p1 -ru --force --no-backup-if-mismatch -d $PWD < /patch/flightradar24.patch && \
